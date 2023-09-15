@@ -1,14 +1,13 @@
 """
 Andrew DeLaFrance
 adelaf@uw.edu
-September 2023
+April 2023
 
 Script Function: 
 Process and plot model output from 
 McSnow simulations as generated in 
 DeLaFrance et al., submitted to 
 JAMES April 2023
-Revised September 2023
 
 Notes: 
 *Script is intended to be run in sections
@@ -54,7 +53,7 @@ warnings.filterwarnings('ignore')
 """
 SIMULATION SELECTION
 """
-simulation = 'rime_off'
+simulation = 'CONTROL'
 datestr = 'NOV13'
 #datestr = 'DEC3'
 
@@ -75,12 +74,11 @@ write_out_md_prof_data = True
 save_Md_fig_output = True
 save_Vt_Dm_Ar_Rf_fig_output = True 
 
-plot_histograms = False 
-plot_Md_timesteps = False
+plot_histograms = True 
+plot_Md_timesteps = True
 plot_Vt_Dm_Ar_Rf = True
 plot_Md_plus_lines = True
 plot_LWC_sensitivity = True
-plot_LWCdm_sensitivity = True
 plot_depth_sensitivity = True
 plot_updraft_sensitivity = True
 plot_prcp_LWC_sensitivity = True
@@ -107,28 +105,22 @@ sim_folder = dir_path + 'Simulation_Output/'
 save_fn_path = dir_path + 'Figures_' + datestr + '/'
 
 if datestr == 'DEC3':
-    base_dir_control = sim_folder + '/2d_oly_rev_xi100_nz125_lwc73_iwc349_dtc10_nrp9_nugam2.2_rm13_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_CONTROL_Rev/'
-    base_dir_rime_dmsmall = sim_folder + '/2d_oly_rev_xi100_nz125_lwc73_iwc349_dtc10_nrp9_nugam2.2_rm9_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_dmsmall_Rev/'
-    base_dir_rime_dmbig = sim_folder + '/2d_oly_rev_xi100_nz125_lwc73_iwc349_dtc10_nrp9_nugam2.2_rm18_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_dmbig_Rev/'
-    base_dir_rime_heavy = sim_folder + '/2d_oly_rev_xi100_nz125_lwc103_iwc349_dtc10_nrp9_nugam2.2_rm13_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_heavy_Rev/'
-    base_dir_rime_light = sim_folder + '/2d_oly_rev_xi100_nz125_lwc44_iwc349_dtc10_nrp9_nugam2.2_rm13_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_light_Rev/'
-    base_dir_rime_shallow = sim_folder + '/2d_oly_rev_xi100_nz125_lwc73_iwc349_dtc10_nrp9_nugam2.2_rm13_rt1_mt0_vt1_h2750_h0-4000_break0_wwind_Rimeout_rime_shallow_Rev/'
-    base_dir_rime_deep = sim_folder + '/2d_oly_rev_xi100_nz125_lwc73_iwc349_dtc10_nrp9_nugam2.2_rm13_rt1_mt0_vt1_h2750_h0-5500_break0_wwind_Rimeout_rime_deep_Rev/'
-    base_dir_rime_off = sim_folder + '/2d_oly_rev_xi100_nz125_lwc0_iwc349_dtc10_nrp9_nugam2.2_rm13_rt0_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_off_Rev/'
-
+    base_dir_control = sim_folder + '2d_oly_xi100_nz125_lwc73_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_CONTROL6_5/'
+    base_dir_rime_light = sim_folder + '2d_oly_xi100_nz125_lwc44_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_light6_5/'
+    base_dir_rime_heavy = sim_folder + '2d_oly_xi100_nz125_lwc103_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_heavy6_5/'
+    base_dir_rime_shallow = sim_folder + '2d_oly_xi100_nz125_lwc73_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4000_break0_wwind_Rimeout_rime_shallow6_5/'
+    base_dir_rime_deep = sim_folder + '2d_oly_xi100_nz125_lwc73_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-5500_break0_wwind_Rimeout_rime_deep6_5/'
+    base_dir_rime_off = sim_folder + '2d_oly_xi100_nz125_lwc0_iwc349_dtc5_nrp9_nugam2.2_rm27_rt0_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_rime_off6_5/'
     base_dir_updraft_increase = sim_folder + '2d_oly_xi100_nz125_lwc73_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_updraft_increase6_5/'
     base_dir_updraft_decrease = sim_folder + '2d_oly_xi100_nz125_lwc73_iwc349_dtc5_nrp9_nugam2.2_rm27_rt1_mt0_vt1_h2750_h0-4750_break0_wwind_Rimeout_updraft_decrease6_5/'
 
-
 elif datestr == 'NOV13':
-    base_dir_control = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc62_iwc267_dtc10_nrp22_nugam0.008_rm12_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_CONTROL_Rev/'
-    base_dir_rime_dmsmall = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc62_iwc267_dtc10_nrp22_nugam0.008_rm9_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_dmsmall_Rev/'
-    base_dir_rime_dmbig = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc62_iwc267_dtc10_nrp22_nugam0.008_rm18_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_dmbig_Rev/'
-    base_dir_rime_light = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc17_iwc267_dtc10_nrp22_nugam0.008_rm12_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_light_Rev/'
-    base_dir_rime_heavy = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc171_iwc267_dtc10_nrp22_nugam0.008_rm12_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_heavy_Rev/'
-    base_dir_rime_shallow = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc62_iwc267_dtc10_nrp22_nugam0.008_rm12_rt1_mt0_vt1_h2200_h0-4000_break0_wwind_Rimeout_rime_shallow_Rev/'
-    base_dir_rime_off = sim_folder + '/2d_oly_13Nov_rev_xi100_nz125_lwc0_iwc267_dtc10_nrp22_nugam0.008_rm12_rt0_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_off_Rev/'
-
+    base_dir_control = sim_folder +  '2d_oly_13Nov_xi100_nz125_lwc62_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_CONTROL6_5/'
+    base_dir_rime_light = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc17_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_light6_5/'
+    base_dir_rime_heavy = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc171_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_heavy6_5/'
+    base_dir_rime_shallow = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc62_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-4000_break0_wwind_Rimeout_rime_shallow6_5-2/'
+    base_dir_rime_deep = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc62_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-4750_break0_wwind_Rimeout_rime_deep6_5/'
+    base_dir_rime_off = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc0_iwc267_dtc5_nrp21_nugam0.008_rm26_rt0_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_rime_off6_5/'
     base_dir_updraft_increase = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc62_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_updraft_increase6_5/'
     base_dir_updraft_decrease = sim_folder + '2d_oly_13Nov_xi100_nz125_lwc62_iwc267_dtc5_nrp21_nugam0.008_rm26_rt1_mt0_vt1_h2200_h0-5750_break0_wwind_Rimeout_updraft_decrease6_5/'
 
@@ -145,10 +137,6 @@ elif simulation == 'rime_deep':
     base_dir = base_dir_rime_deep
 elif simulation == 'rime_off':
     base_dir = base_dir_rime_off
-elif simulation == 'rime_dmsmall':
-    base_dir = base_dir_rime_dmsmall
-elif simulation == 'rime_dmbig':
-    base_dir = base_dir_rime_dmbig
 elif simulation == 'updraft_increase':
     base_dir = base_dir_updraft_increase
 elif simulation == 'updraft_decrease':
@@ -162,7 +150,6 @@ Vt_fn = [base_dir + 'hei2massdens2D_Vt.dat'] #Velocity
 Dm_fn = [base_dir + 'hei2massdens2D_Dm.dat'] #Diameter-ave.
 Rf_fn = [base_dir + 'hei2massdens2D_Rf.dat'] #Riming fraction
 Fm_fn = [base_dir + 'hei2massdens2D_Fm.dat'] #Mass flux
-Vol_fn = [base_dir + 'hei2massdens2D_Vol.dat'] #Volume (effective)
 
 elev_45deg_fn = dir_path + 'DATA/elev_45deg.npy'
 elev_45deg = np.load(elev_45deg_fn) #[dist, elev], elevation in meters
@@ -354,7 +341,7 @@ def generate_plot(multipanel_flag, var_fn, t_ind, cbar_lab, cmap, vmin, vmax, lo
                         save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_mode_y_'+simulation+'.npy', mode_y)
 
 
-            if save_Vt_Dm_Ar_Rf_fig_output and (save_fn_var == 'Vt' or save_fn_var == 'Ar' or save_fn_var == 'Dm' or save_fn_var == 'Rf' or save_fn_var == 'Vol'):
+            if save_Vt_Dm_Ar_Rf_fig_output and (save_fn_var == 'Vt' or save_fn_var == 'Ar' or save_fn_var == 'Dm' or save_fn_var == 'Rf'):
                 lst_mode = [var_fmtd[aa, mode_var[aa]] for aa in range(len(mode_var))]
                 lst_minn = [var_fmtd[aa, minn[aa]] for aa in range(len(minn))]
                 lst_maxx = [var_fmtd[aa, maxx[aa]] for aa in range(len(maxx))]
@@ -415,7 +402,7 @@ def generate_plot(multipanel_flag, var_fn, t_ind, cbar_lab, cmap, vmin, vmax, lo
             np.save(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_yticks.npy', yticks)
             np.save(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_ylabs.npy', ylabs)
         
-        if save_Vt_Dm_Ar_Rf_fig_output and (save_fn_var == 'Vt' or save_fn_var == 'Ar' or save_fn_var == 'Dm' or save_fn_var == 'Rf' or save_fn_var == 'Vol'):
+        if save_Vt_Dm_Ar_Rf_fig_output and (save_fn_var == 'Vt' or save_fn_var == 'Ar' or save_fn_var == 'Dm' or save_fn_var == 'Rf'):
             np.save(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at' +
                     save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy', var_fmtd)
 
@@ -641,109 +628,6 @@ save_fn_time = t_hrs_sv
 
 generate_plot(multipanel_flag, var_fn, t_ind, cbar_lab, cmap, vmin, vmax, log_flag, dist_text_flag, type_text, type_text_flag,
     xticks, xlabs, nx, xdim, mode_flag, var_scaling, t_hrs, save_fn_var, save_fn_lab, save_fn_time, save_fn_path)
-
-
-#%%
-"""PLOT Vol
-"""
-multipanel_flag = False
-var_fn = Vol_fn
-cbar_lab = '$\mathregular{Volume\ (cm^{3}\ m^{-3})}$'
-cmap = 'tab20b_r'
-vmin, vmax = 0, 0.05
-log_flag = False
-mode_flag = True
-dist_text_flag = False
-type_text_flag = False
-var_scaling = 10**6 # cm3 from m3
-save_fn_var = 'Vol'
-save_fn_time = t_hrs_sv
-
-generate_plot(multipanel_flag, var_fn, t_ind, cbar_lab, cmap, vmin, vmax, log_flag, dist_text_flag, type_text, type_text_flag,
-    xticks, xlabs, nx, xdim, mode_flag, var_scaling, t_hrs, save_fn_var, save_fn_lab, save_fn_time, save_fn_path)
-
-
-#%%
-"""PLOT rho_eff
-"""
-cbar_lab = 'Particle Effective Density $\mathregular{(g\ cm^{-3})}$'
-cmap = 'tab20b_r'
-vmin, vmax = 0, 0.2
-save_fn_time = t_hrs_sv
-
-save_fn_var = 'Md'
-var_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                 '_at'+save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy')
-save_fn_var = 'Vol'
-var_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                  '_at'+save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy')
-
-rhoeff = (var_Md / (var_Vol))
-
-plt.rcParams.update({'font.size': 14})
-
-fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(8, 6))
-
-bbox_let = dict(facecolor='white', edgecolor='none', boxstyle='round')
-if datestr == 'DEC3':
-    dtxt = ' 03 Dec.'
-    ht_temp0 = 2861.2
-    ht_temp0_ytickpos = [ht_temp0]
-    ht_temp0_yticks = [min(range(len(z_list)), key=lambda i: abs(z_list[i]-x))
-                       for x in ht_temp0_ytickpos]
-elif datestr == 'NOV13':
-    dtxt = ' 13 Nov.'
-    ht_temp0 = 2384.5
-    ht_temp0_ytickpos = [ht_temp0]
-    ht_temp0_yticks = [min(range(len(z_list)), key=lambda i: abs(z_list[i]-x))
-                       for x in ht_temp0_ytickpos]
-
-save_fn_var = 'Md'
-save_fn_time = t_hrs_sv
-t0_str = '4'
-
-terrain_x = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                    '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_dists.npy')
-terrain_y = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                    '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_elevs.npy')
-yticks = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                 '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_yticks.npy')
-ylabs = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                '_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_ylabs.npy')
-mode_x = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at' +
-                 save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_mode_x_'+simulation+'.npy')
-mode_y = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at' +
-                 save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_mode_y_'+simulation+'.npy')
-
-
-im1 = ax.pcolormesh(rhoeff, vmin=vmin, vmax=vmax, cmap=cmap)
-cbar1 = fig.colorbar(im1, ax=ax, ticks=np.arange(
-    vmin, vmax+0.04, 0.04), extend='max')
-cbar1.set_label(cbar_lab)
-
-ax.plot(terrain_x, terrain_y, color='gray', linewidth=2)
-ax.fill_between(terrain_x, np.full(len(terrain_y), 0),
-                y2=terrain_y, color='gray', alpha=0.75)
-ax.set_xticks(xticks[::2])
-ax.set_xticklabels(xlabs[::2])
-ax.set_xlim(0, nx*0.6)  # 120 km
-ax.set_yticks(yticks)
-ax.set_yticklabels(ylabs)
-ax.plot(mode_x, mode_y, color='lightgray', linewidth=3, linestyle='--')
-ax.grid(linestyle='--', linewidth=0.5)
-ax.tick_params(which='both', direction='in')
-ax.axhline(ht_temp0_yticks, xmin=0, xmax=nx*0.6,
-           color='dimgray', linewidth=3, linestyle=':')
-
-ax.set_ylabel('Height (km)')
-ax.set_xlabel('Distance (km)')
-
-fig.tight_layout()
-save_fn = save_fn_path + 'rhoeff'+'_McSnow_2D_SIM'+'_' + datestr + \
-    '_t_step'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'.png'
-plt.savefig(save_fn, dpi=300)
-plt.show()
-plt.close()
 
 #%%
 """
@@ -1041,25 +925,18 @@ if plot_Vt_Dm_Ar_Rf:
 
 
     """
-    PLOT C, rho
+    PLOT C, Ar
     """
-    
     var_fn = Ar_fn
-    cbar_lab = 'Effective Density $\mathregular{(g\ cm^{-3})}$'
+    cbar_lab = 'Area Ratio'
     cmap = 'tab20b_r'
-    vmin, vmax = 0, 0.2
+    vmin, vmax = 0, 1.0
+    save_fn_var = 'Ar'
     save_fn_time = t_hrs_sv
 
-    save_fn_var = 'Md'
-    var_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at' +
-                     save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy')
-    save_fn_var = 'Vol'
-    var_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr +
-                      '_at'+save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy')
-    var = (var_Md / (var_Vol))
-
+    var = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at'+save_fn_time+'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_var_'+simulation+'.npy')
     im2 = ax[1,0].pcolormesh(var, vmin = vmin, vmax = vmax, cmap = cmap)
-    cbar2 = fig.colorbar(im2, ax = ax[1,0], ticks = np.arange(vmin, vmax+0.04, 0.04), extend = 'max')
+    cbar2 = fig.colorbar(im2, ax = ax[1,0], ticks = np.arange(vmin, vmax+0.1, 0.2))
     cbar2.set_label(cbar_lab)
 
 
@@ -1113,7 +990,7 @@ if plot_Vt_Dm_Ar_Rf:
     fig.tight_layout()
     plt.subplots_adjust(wspace = 0.2, hspace = 0.15)
 
-    save_fn = save_fn_path + 'Vt_Dm_rho_Rf'+'_McSnow_2D_SIM'+'_' + datestr + '_t_step'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_'+simulation+'.png'
+    save_fn = save_fn_path + 'Vt_Dm_Ar_Rf'+'_McSnow_2D_SIM'+'_' + datestr + '_t_step'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_'+simulation+'.png'
     plt.savefig(save_fn, dpi = 300)
     plt.show()
     plt.close()
@@ -1127,7 +1004,8 @@ if plot_Md_plus_lines:
 
     spec = gridspec.GridSpec(nrows = 2, ncols = 2, width_ratios = [1,1], height_ratios = [0.05, 1], \
                             wspace = 0.25, hspace = 0.05, \
-                            left=0.08, bottom=0.15, right=0.95, top=0.8)
+                            left=0.08, bottom=0.15, right=0.93, top=0.8)
+
 
     spec1 = gridspec.GridSpecFromSubplotSpec(nrows = 1, ncols = 2, subplot_spec=spec[1,1], width_ratios = [1,1], wspace = 0.25)
 
@@ -1181,7 +1059,7 @@ if plot_Md_plus_lines:
     ax0.set_xlim(0,nx*0.6) # 120 km
     ax0.set_yticks(yticks)
     ax0.set_yticklabels(ylabs)
-    ax0.plot(mode_x, mode_y, color = 'lightgray', linewidth = 2, linestyle = '--')
+    ax0.plot(mode_x, mode_y, color = 'lightgray', linewidth = 4, linestyle = '--')
     ax0.grid(linestyle = '--', linewidth = 0.5)
 
     ax0.set_ylabel('Height (km)')
@@ -1209,7 +1087,7 @@ if plot_Md_plus_lines:
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
 
     xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-    ax1.plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = color, linewidth = 2, linestyle = ls)
+    ax1.plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = color, linewidth = 4, linestyle = ls)
     ax1.set_xlabel(cbar_lab)
     ax1.xaxis.label.set_color(color)
     ax1.tick_params(axis='x', colors=color)
@@ -1231,7 +1109,7 @@ if plot_Md_plus_lines:
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
 
     xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-    ax2.plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colorline, linewidth = 2, linestyle = ls)
+    ax2.plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colorline, linewidth = 4, linestyle = ls)
     ax2.xaxis.label.set_color(color)
     ax2.tick_params(axis='x', colors=color)
     ax2.set_xlabel(cbar_lab)
@@ -1250,28 +1128,24 @@ if plot_Md_plus_lines:
     ax1.grid(linestyle = '--', linewidth = 0.5)
     ax1.set_ylabel('Height (km)')
 
+
     """
-    PLOT C, rho
+    PLOT C, Ar
     """
     var_fn = Ar_fn
-    cbar_lab = 'Density $\mathregular{(g\ cm^{-3})}$'
-    save_fn_var = 'Md'
+    cbar_lab = 'Area Ratio'
+    save_fn_var = 'Ar'
     save_fn_time = t_hrs_sv
-
+    
     colorline = bluecolor
     color = '#1b699d'
     ls = '-'
 
-    save_fn_var = 'Md'
-    model_md_ht_50_15_85_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at'+save_fn_time +
-                                      'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
-    save_fn_var = 'Vol'
-    model_md_ht_50_15_85_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at'+save_fn_time +
-                                   'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
-    rho_eff = model_md_ht_50_15_85_Md[1,:] / (model_md_ht_50_15_85_Vol[1,:])
-    
-    xsmoothed = gaussian_filter1d(rho_eff, sigma=2)
-    ax3.plot(xsmoothed, model_md_ht_50_15_85_Md[0,:]/1, color = colorline, linewidth = 2, linestyle = ls)
+    model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at'+save_fn_time +
+                        'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
+
+    xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
+    ax3.plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colorline, linewidth = 4, linestyle = ls)
     ax3.xaxis.label.set_color(color)
     ax3.tick_params(axis='x', colors=color)
     ax3.set_xlabel(cbar_lab)
@@ -1292,16 +1166,16 @@ if plot_Md_plus_lines:
     model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + datestr + '_at'+save_fn_time +
                                    'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+simulation+'.npy')
 
-    ax4.plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colorline, linewidth = 2, linestyle = ls)
+    ax4.plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colorline, linewidth = 4, linestyle = ls)
     ax4.xaxis.label.set_color(color)
     ax4.tick_params(axis='x', colors=color)
     ax4.set_xlabel(cbar_lab)
 
-    ax3.set_xlim(vmin,0.2)
+    ax3.set_xlim(vmin,vmax)
     ax4.set_xlim(vmin,vmax)
 
-    ax3.set_xticks([0,0.05,0.1,0.15, 0.2])
-    ax3.set_xticklabels(['0', '', '0.1', '', '0.2'])
+    ax3.set_xticks([0,0.25,0.5,0.75, 1])
+    ax3.set_xticklabels(['0', '', '0.5', '', '1'])
     ax4.set_xticks([0,0.25,0.5,0.75, 1])
     ax4.set_xticklabels(['0', '', '0.5', '', '1'])
 
@@ -1358,7 +1232,7 @@ if plot_LWC_sensitivity:
     leg_colors = [blackcolor, greencolor, bluecolor, redcolor]
     lines = ['-', '--', ':']
     leg_lines = [Line2D([0], [0], color=c, linewidth=3, linestyle='-') for c in leg_colors]
-    leg_labels = ['control', 'SLW_heavy', 'SLW_light', 'SLW_none']
+    leg_labels = ['control', 'rime_heavy', 'rime_light', 'rime_off']
 
 
     """
@@ -1378,7 +1252,7 @@ if plot_LWC_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
 
-            ax[d, 0].plot(model_md_ht_50_15_85[1, :], model_md_ht_50_15_85[0, :]/1, color=colors[s], linewidth=2, linestyle=lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d, 0].plot(model_md_ht_50_15_85[1, :], model_md_ht_50_15_85[0, :]/1, color=colors[s], linewidth=3.5, linestyle=lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,0].set_xlabel(cbar_lab)
@@ -1403,7 +1277,7 @@ if plot_LWC_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,1].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d,1].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,1].set_xlabel(cbar_lab)
@@ -1428,21 +1302,21 @@ if plot_LWC_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,2].set_xlabel(cbar_lab)
         ax[d,2].set_xlim(vmin, vmax)
         ax[d,2].set_xticks(np.arange(vmin, vmax+1,1))
 
+
     """
-    PLOT D, rhoeff
+    PLOT D, Ar
     """
-    
-    var_fn = Md_fn
-    cbar_lab = 'Eff. Density\n $\mathregular{(g\ cm^{-3})}$'
-    vmin, vmax = 0, 0.3
-    save_fn_var = 'Md'
+    var_fn = Ar_fn
+    cbar_lab = 'Area Ratio'
+    vmin, vmax = 0, 1
+    save_fn_var = 'Ar'
     save_fn_time = t_hrs_sv
 
     for d in range(len(datelist)):
@@ -1450,22 +1324,16 @@ if plot_LWC_sensitivity:
         dstr_short = datelist_short[d]
         for s in range(len(simlist)):
             sstr = simlist[s]
-            path = '/'.join(save_fn_path.split('/')[0:8]) + '/' + dstr + '/' + sstr + '/'
-            save_fn_var = 'Md'
-            model_md_ht_50_15_85_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                              'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            save_fn_var = 'Vol'
-            model_md_ht_50_15_85_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                               'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            rho_eff = model_md_ht_50_15_85_Md[1,:] / (model_md_ht_50_15_85_Vol[1,:])
-            xsmoothed = gaussian_filter1d(rho_eff, sigma=2)
-            ax[d,3].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
+                        'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
+            xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
+            ax[d,3].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,3].set_xlabel(cbar_lab)
         ax[d,3].set_xlim(vmin, vmax)
-        ax[d,3].set_xticks([0, 0.1, 0.2, 0.3])
-        ax[d,3].set_xticklabels(['0','0.1', '0.2', '0.3'])
+        ax[d,3].set_xticks([0,0.25,0.5,0.75, 1])
+        ax[d,3].set_xticklabels(['0', '', '0.5', '', '1'])
 
 
 
@@ -1548,7 +1416,7 @@ if plot_updraft_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,0].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0])
+            ax[d,0].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 4, linestyle = lines[0])
 
         if d == 1:
             ax[d,0].set_xlabel(cbar_lab)
@@ -1573,7 +1441,7 @@ if plot_updraft_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                                            'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,1].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0])
+            ax[d,1].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 4, linestyle = lines[0])
 
         if d == 1:
             ax[d,1].set_xlabel(cbar_lab)
@@ -1598,7 +1466,7 @@ if plot_updraft_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0])
+            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 4, linestyle = lines[0])
 
         if d == 1:
             ax[d,2].set_xlabel(cbar_lab)
@@ -1623,7 +1491,7 @@ if plot_updraft_sensitivity:
             sstr = simlist[s]
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            ax[d,3].plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0])
+            ax[d,3].plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 4, linestyle = lines[0])
 
         if d == 1:
             ax[d,3].set_xlabel(cbar_lab)
@@ -1663,196 +1531,6 @@ if plot_updraft_sensitivity:
     plt.show()
     plt.close()
 
-#%%
-"""LWC droplet diameter sensitvity 
-"""
-if plot_LWCdm_sensitivity:
-    plt.rcParams.update({'font.size': 14})
-    fig, ax = plt.subplots(nrows=2, ncols=4, figsize=(8, 6))
-
-    bbox_let = dict(facecolor='white', edgecolor='none', boxstyle='round')
-    ax[0, 0].text(0.95, 0.95, '(a)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[0, 0].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[0, 1].text(0.95, 0.95, '(b)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[0, 1].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[0, 2].text(0.95, 0.95, '(c)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[0, 2].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[0, 3].text(0.95, 0.95, '(d)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[0, 3].transAxes, bbox=bbox_let, fontweight='semibold')
-    #ax[0,3].text(1.05, 0.5, '03 December', horizontalalignment='left', verticalalignment='center', transform=ax[0,3].transAxes, bbox = bbox_let, fontweight = 'regular', rotation = 90)
-    ax[0, 3].text(1.05, 0.5, '03 December', horizontalalignment='left', verticalalignment='center',
-                  transform=ax[0, 3].transAxes, bbox=bbox_let, fontweight='semibold', rotation=90)
-
-    ax[1, 0].text(0.95, 0.95, '(e)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[1, 0].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[1, 1].text(0.95, 0.95, '(f)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[1, 1].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[1, 2].text(0.95, 0.95, '(g)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[1, 2].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[1, 3].text(0.95, 0.95, '(h)', horizontalalignment='right', verticalalignment='top',
-                  transform=ax[1, 3].transAxes, bbox=bbox_let, fontweight='semibold')
-    ax[1, 3].text(1.05, 0.5, '13 November', horizontalalignment='left', verticalalignment='center',
-                  transform=ax[1, 3].transAxes, bbox=bbox_let, fontweight='semibold', rotation=90)
-
-    datelist = ['DEC3SIMULATIONS', 'NOV13SIMULATIONS']
-    datelist_short = ['DEC3', 'NOV13']
-    simlist = ['rime_dmsmall', 'rime_dmbig', 'CONTROL']
-    colors = ['#e41a1c', '#377eb8', 'black']
-
-    leg_colors = ['black', '#377eb8', '#e41a1c']
-    lines = ['-', '--', ':']
-    leg_lines = [Line2D([0], [0], color=c, linewidth=3, linestyle='-')
-                 for c in leg_colors]
-    #leg_labels = ['control', 'SLW_diam_$\mathregular{P_{85}}$', 'SLW_diam_$\mathregular{P_{15}}$']
-    leg_labels = ['control', 'SLW_diam_big', 'SLW_diam_small']
-
-    """
-    PLOT A, Rf
-    """
-    var_fn = Rf_fn
-    cbar_lab = 'Rime Fraction'
-    vmin, vmax = 0, 1
-    save_fn_var = 'Rf'
-    save_fn_time = t_hrs_sv
-
-    for d in range(len(datelist)):
-        dstr = datelist[d]
-        dstr_short = datelist_short[d]
-        for s in range(len(simlist)):
-            sstr = simlist[s]
-            path = '/'.join(save_fn_path.split('/')
-                            [0:8]) + '/' + dstr + '/' + sstr + '/'
-            model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                        'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            ax[d, 0].plot(model_md_ht_50_15_85[1, :], model_md_ht_50_15_85[0,
-                                                                           :]/1, color=colors[s], linewidth=2, linestyle=lines[0])
-
-        if d == 1:
-            ax[d, 0].set_xlabel(cbar_lab)
-        ax[d, 0].set_xlim(vmin, vmax)
-        ax[d, 0].set_xticks([0, 0.25, 0.5, 0.75, 1])
-        ax[d, 0].set_xticklabels(['0', '', '0.5', '', '1'])
-
-    """
-    PLOT B, Vt
-    """
-    var_fn = Vt_fn
-    cbar_lab = 'Fall Velocity\n $\mathregular{(m\ s^{-1})}$'
-    vmin, vmax = 0, 6
-    save_fn_var = 'Vt'
-    save_fn_time = t_hrs_sv
-
-    for d in range(len(datelist)):
-        dstr = datelist[d]
-        dstr_short = datelist_short[d]
-        for s in range(len(simlist)):
-            sstr = simlist[s]
-            print(dstr, sstr, colors[s])
-            path = '/'.join(save_fn_path.split('/')
-                            [0:8]) + '/' + dstr + '/' + sstr + '/'
-            print(path)
-            model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                           'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1, :], sigma=2)
-            ax[d, 1].plot(xsmoothed, model_md_ht_50_15_85[0, :]/1,
-                          color=colors[s], linewidth=2, linestyle=lines[0])
-
-        if d == 1:
-            ax[d, 1].set_xlabel(cbar_lab)
-        ax[d, 1].set_xlim(vmin, vmax)
-        ax[d, 1].set_xticks(np.arange(vmin, vmax+2, 2))
-
-    """
-    PLOT C, Dm
-    """
-    var_fn = Dm_fn
-    cbar_lab = 'Mean Diameter\n $\mathregular{(mm)}$'
-    vmin, vmax = 0, 4
-    save_fn_var = 'Dm'
-    save_fn_time = t_hrs_sv
-
-    for d in range(len(datelist)):
-        dstr = datelist[d]
-        dstr_short = datelist_short[d]
-        for s in range(len(simlist)):
-            sstr = simlist[s]
-            path = '/'.join(save_fn_path.split('/')
-                            [0:8]) + '/' + dstr + '/' + sstr + '/'
-            model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                           'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1, :], sigma=2)
-            ax[d, 2].plot(xsmoothed, model_md_ht_50_15_85[0, :]/1,
-                          color=colors[s], linewidth=2, linestyle=lines[0])
-
-        if d == 1:
-            ax[d, 2].set_xlabel(cbar_lab)
-        ax[d, 2].set_xlim(vmin, vmax)
-        ax[d, 2].set_xticks(np.arange(vmin, vmax+1, 1))
-
-    """
-    PLOT D, rhoeff
-    """
-
-    var_fn = Md_fn
-    cbar_lab = 'Eff. Density\n $\mathregular{(g\ cm^{-3})}$'
-    vmin, vmax = 0, 0.3
-    save_fn_var = 'Md'
-    save_fn_time = t_hrs_sv
-
-    for d in range(len(datelist)):
-        #for d in range(1):
-        dstr = datelist[d]
-        dstr_short = datelist_short[d]
-        for s in range(len(simlist)):
-            sstr = simlist[s]
-            path = '/'.join(save_fn_path.split('/')
-                            [0:8]) + '/' + dstr + '/' + sstr + '/'
-            save_fn_var = 'Md'
-            model_md_ht_50_15_85_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                        'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            save_fn_var = 'Vol'
-            model_md_ht_50_15_85_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                               'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            rho_eff = model_md_ht_50_15_85_Md[1,
-                                              :] / (model_md_ht_50_15_85_Vol[1, :])
-            xsmoothed = gaussian_filter1d(rho_eff, sigma=2)
-            ax[d, 3].plot(xsmoothed, model_md_ht_50_15_85[0, :]/1,
-                          color=colors[s], linewidth=2, linestyle=lines[0])
-
-        if d == 1:
-            ax[d, 3].set_xlabel(cbar_lab)
-        ax[d, 3].set_xlim(vmin, vmax)
-        ax[d, 3].set_xticks([0, 0.1, 0.2, 0.3])
-        ax[d, 3].set_xticklabels(['0', '0.1', '0.2', '0.3'])
-
-    plt.legend(leg_lines, leg_labels, loc='lower center', bbox_to_anchor=(0, 0.9, 1, 1),
-               bbox_transform=plt.gcf().transFigure, ncol=4)
-
-    for r in range(2):
-        for c in range(4):
-            ax[r, c].tick_params(axis='x', colors='black')
-            ax[r, c].set_ylim(0, 6000)
-            ax[r, c].set_yticks(np.arange(0, 7000, 1000))
-            ax[r, c].grid(linestyle='--', linewidth=0.5)
-            ax[r, c].tick_params(which='both', direction='in')
-
-            if c == 0:
-                ax[r, c].set_yticklabels(np.arange(0, 7, 1))
-                ax[r, c].set_ylabel('Height (km)')
-            else:
-                ax[r, c].tick_params(labelleft=False)
-            if r == 0:
-                ax[r, c].tick_params(labelbottom=False)
-
-    fig.tight_layout()
-    fig.subplots_adjust(bottom=0.15)
-
-    save_fn = dir_path + 'Figures_Combined/' + 'dm_sensitivity' + \
-        '_McSnow_2D_SIM_'+str(nz)+'_x'+str(nx)+'_grid'+'.png'
-    plt.savefig(save_fn, dpi=300)
-
-    plt.show()
-    plt.close()
 
 #%%
 if plot_depth_sensitivity:
@@ -1908,7 +1586,7 @@ if plot_depth_sensitivity:
             sstr = simlist[s]
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            ax[d,0].plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d,0].plot(model_md_ht_50_15_85[1,:], model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,0].set_xlabel(cbar_lab)
@@ -1940,8 +1618,8 @@ if plot_depth_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d, 1].plot(xsmoothed, model_md_ht_50_15_85[0, :]/1, color=colors[s], linewidth=2,
-                          linestyle=lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d, 1].plot(xsmoothed, model_md_ht_50_15_85[0, :]/1, color=colors[s], linewidth=3.5,
+                          linestyle=lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,1].set_xlabel(cbar_lab)
@@ -1972,7 +1650,7 @@ if plot_depth_sensitivity:
             model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
             xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
-            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d,2].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,2].set_xlabel(cbar_lab)
@@ -1981,37 +1659,36 @@ if plot_depth_sensitivity:
 
 
     """
-    PLOT D, rhoeff
+    PLOT D, Ar
     """
-    
-    var_fn = Md_fn
-    cbar_lab = 'Eff. Density\n $\mathregular{(g\ cm^{-3})}$'
-    vmin, vmax = 0, 0.3
-    save_fn_var = 'Md'
+    var_fn = Ar_fn
+    cbar_lab = 'Area Ratio'
+    vmin, vmax = 0, 1
+    save_fn_var = 'Ar'
     save_fn_time = t_hrs_sv
 
     for d in range(len(datelist)):
         dstr = datelist[d]
         dstr_short = datelist_short[d]
+        if d == 1:  # Nov 13
+            simlist = ['rime_shallow', 'CONTROL']
+            colors = [bluecolor, blackcolor]
+        else:
+            simlist = ['rime_shallow', 'rime_deep', 'CONTROL']
+            colors = [bluecolor, greencolor, blackcolor]
         for s in range(len(simlist)):
             sstr = simlist[s]
-            path = '/'.join(save_fn_path.split('/')[0:8]) + '/' + dstr + '/' + sstr + '/'
-            save_fn_var = 'Md'
-            model_md_ht_50_15_85_Md = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
-                                              'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            save_fn_var = 'Vol'
-            model_md_ht_50_15_85_Vol = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
+            model_md_ht_50_15_85 = np.load(dir_path + 'Data/' + save_fn_var+'_McSnow_2D_SIM'+'_' + dstr_short + '_at'+save_fn_time +
                         'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_traj_50_15_85_'+sstr+'.npy')
-            rho_eff = model_md_ht_50_15_85_Md[1,:] / (model_md_ht_50_15_85_Vol[1,:])
-            xsmoothed = gaussian_filter1d(rho_eff, sigma=2)
-
-            ax[d,3].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 2, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            xsmoothed = gaussian_filter1d(model_md_ht_50_15_85[1,:], sigma=2)
+            ax[d,3].plot(xsmoothed, model_md_ht_50_15_85[0,:]/1, color = colors[s], linewidth = 3.5, linestyle = lines[0], path_effects=[pe.withStroke(linewidth=5, foreground='white'), pe.Normal()])
 
         if d == 1:
             ax[d,3].set_xlabel(cbar_lab)
         ax[d,3].set_xlim(vmin, vmax)
-        ax[d,3].set_xticks([0, 0.1, 0.2, 0.3])
-        ax[d,3].set_xticklabels(['0', '0.1',  '0.2', '0.3'])
+        ax[d,3].set_xticks([0,0.25,0.5,0.75, 1])
+        ax[d,3].set_xticklabels(['0', '', '0.5', '', '1'])
+
 
 
     plt.legend(leg_lines, leg_labels, loc = 'lower center', bbox_to_anchor = (0, 0.9, 1, 1),\
@@ -2063,7 +1740,7 @@ if plot_prcp_LWC_sensitivity:
     leg_colors = [blackcolor, greencolor, bluecolor, redcolor]
     lines = ['-', '--', ':']
     leg_lines = [Line2D([0], [0], color=c, linewidth=3, linestyle='-') for c in leg_colors]
-    leg_labels = ['control', 'SLW_heavy', 'SLW_light', 'SLW_none']
+    leg_labels = ['control', 'rime_heavy', 'rime_light', 'rime_off']
 
     for d in range(len(datelist)):
         dstr = datelist[d]
@@ -2076,7 +1753,7 @@ if plot_prcp_LWC_sensitivity:
                 'hrs_z'+str(nz)+'_x'+str(nx)+'_grid_'+save_fn_lab+'_'+sstr+'.npy')
 
             ax[d].bar(prcp_xy_bar[0,:], prcp_xy_bar[1,:], color = colors[s], alpha = 0.75)
-            ax[d].plot(prcp_xy_smooth[0,:], prcp_xy_smooth[1,:], color = colors[s], linewidth = 2, path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d].plot(prcp_xy_smooth[0,:], prcp_xy_smooth[1,:], color = colors[s], linewidth = 4, path_effects=[pe.withStroke(linewidth=6, foreground='white'), pe.Normal()])
 
 
     for axi in ax:
@@ -2142,7 +1819,7 @@ if plot_prcp_depth_sensitivity:
            
 
             ax[d].bar(prcp_xy_bar[0,:], prcp_xy_bar[1,:], color = colors[s], alpha = 0.75)
-            ax[d].plot(prcp_xy_smooth[0,:], prcp_xy_smooth[1,:], color = colors[s], linewidth = 2, path_effects=[pe.withStroke(linewidth=3.5, foreground='white'), pe.Normal()])
+            ax[d].plot(prcp_xy_smooth[0,:], prcp_xy_smooth[1,:], color = colors[s], linewidth = 4, path_effects=[pe.withStroke(linewidth=6, foreground='white'), pe.Normal()])
 
 
     for axi in ax:
